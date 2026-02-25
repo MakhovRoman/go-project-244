@@ -2,13 +2,15 @@ package main
 
 import (
 	"context"
+	"fmt"
+	"log"
 	"os"
 
 	"github.com/urfave/cli/v3"
 )
 
 func main() {
-	(&cli.Command{
+	cmd := &cli.Command{
 		Name:  "gendiff",
 		Usage: "Compares two configuration files and shows a difference.",
 		Flags: []cli.Flag{
@@ -19,5 +21,15 @@ func main() {
 				Usage:   "output format",
 			},
 		},
-	}).Run(context.Background(), os.Args)
+		Action: func(ctx context.Context, cmd *cli.Command) error {
+			args := cmd.Args().Slice()
+			fmt.Printf("[first path: %s] [second path: %s]\n", args[0], args[1])
+
+			return nil
+		},
+	}
+
+	if err := cmd.Run(context.Background(), os.Args); err != nil {
+		log.Fatal(err)
+	}
 }
