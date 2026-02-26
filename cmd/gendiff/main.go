@@ -1,6 +1,7 @@
 package main
 
 import (
+	"code"
 	"context"
 	"fmt"
 	"log"
@@ -22,9 +23,19 @@ func main() {
 			},
 		},
 		Action: func(ctx context.Context, cmd *cli.Command) error {
-			args := cmd.Args().Slice()
-			fmt.Printf("[first path: %s] [second path: %s]\n", args[0], args[1])
+			if cmd.Args().Len() != 2 {
+				return fmt.Errorf("usage: gendiff <file1> <file2>")
+			}
 
+			path1 := cmd.Args().Get(0)
+			path2 := cmd.Args().Get(1)
+
+			res, err := code.GenDiff(path1, path2)
+			if err != nil {
+				return err
+			}
+
+			fmt.Println(res)
 			return nil
 		},
 	}
