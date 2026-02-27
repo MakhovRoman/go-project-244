@@ -5,24 +5,18 @@ import (
 	"errors"
 	"fmt"
 	"os"
-	"strings"
+	"path/filepath"
 )
 
 func Parse(path string) (map[string]any, error) {
-	info, err := os.Stat(path)
-	if err != nil {
-		return nil, err
-	}
-	separated := strings.Split(info.Name(), ".")
-	extension := separated[len(separated)-1]
-
-	if extension != "json" {
-		return nil, errors.New("unsupported format")
-	}
-
 	data, err := os.ReadFile(path)
 	if err != nil {
 		return nil, err
+	}
+
+	ext := filepath.Ext(path)
+	if ext != ".json" {
+		return nil, errors.New("unsupported format")
 	}
 
 	var result map[string]any

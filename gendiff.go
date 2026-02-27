@@ -3,7 +3,6 @@ package code
 import (
 	"code/internal/compare"
 	"code/internal/parser"
-	"fmt"
 	"path/filepath"
 )
 
@@ -28,9 +27,9 @@ func GenDiff(path1, path2 string) (string, error) {
 		return "", err
 	}
 
-	compare.BuildDiff(parsed1, parsed2)
+	result := compare.BuildDiff(parsed1, parsed2)
 
-	return fmt.Sprint("parsing completed"), nil
+	return result, nil
 }
 
 func normalizePath(path string) (string, error) {
