@@ -1,5 +1,5 @@
 ### Hexlet tests and linter status:
-[![Actions Status](https://github.com/MakhovRoman/go-project-244/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/MakhovRoman/go-project-244/actions)
+[![Actions Status](https://github.com/MakhovRoman/go-project-244/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/MakhovRoman/go-project-244/actions) [![Actions Status](https://github.com/MakhovRoman/go-project-244/actions/workflows/MY_CI.yml/badge.svg)](https://github.com/MakhovRoman/go-project-244/actions)
 
 ### Demo
 ![demo.gif](demo.gif)
