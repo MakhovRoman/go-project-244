@@ -15,7 +15,7 @@ jobs:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
 
       - name: Run tests with coverage
-        run: go test ./... -coverprofile=coverage.out -covermode=atomic ./...
+        run: go test ./... -coverprofile=coverage.out -covermode=count
 
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@v5
