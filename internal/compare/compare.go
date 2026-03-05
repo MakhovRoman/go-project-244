@@ -28,14 +28,14 @@ func BuildDiff(d1, d2 map[string]any) string {
 
 		switch {
 		case !ok1 && ok2:
-			result.WriteString(fmt.Sprintf("+ %s: %v\n", k, v2))
+			fmt.Fprintf(&result, "+ %s: %v\n", k, v2)
 		case ok1 && !ok2:
-			result.WriteString(fmt.Sprintf("- %s: %v\n", k, v1))
+			fmt.Fprintf(&result, "- %s: %v\n", k, v1)
 		case v1 != v2:
-			result.WriteString(fmt.Sprintf("- %s: %v\n", k, v1))
-			result.WriteString(fmt.Sprintf("+ %s: %v\n", k, v2))
+			fmt.Fprintf(&result, "- %s: %v\n", k, v1)
+			fmt.Fprintf(&result, "+ %s: %v\n", k, v2)
 		default:
-			result.WriteString(fmt.Sprintf("  %s: %v\n", k, v1))
+			fmt.Fprintf(&result, "  %s: %v\n", k, v1)
 		}
 	}
 
