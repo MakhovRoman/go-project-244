@@ -1,11 +1,14 @@
 BINARY_NAME=gendiff
 
-.PHONY: build
+.PHONY: build lint run
 
 lint:
 	golangci-lint run
 
-build: lint
+test:
+	go test ./...
+
+build: lint test
 	go build -o bin/${BINARY_NAME} cmd/${BINARY_NAME}/main.go
 
 run:

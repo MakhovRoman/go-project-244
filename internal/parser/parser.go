@@ -3,10 +3,11 @@ package parser
 import (
 	"encoding/json"
 	"errors"
-	"fmt"
 	"os"
 	"path/filepath"
 )
+
+var ErrUnsupportedFormat = errors.New("unsupported format")
 
 func Parse(path string) (map[string]any, error) {
 	data, err := os.ReadFile(path)
@@ -16,12 +17,12 @@ func Parse(path string) (map[string]any, error) {
 
 	ext := filepath.Ext(path)
 	if ext != ".json" {
-		return nil, errors.New("unsupported format")
+		return nil, ErrUnsupportedFormat
 	}
 
 	var result map[string]any
 	if err := json.Unmarshal(data, &result); err != nil {
-		return nil, fmt.Errorf("invalid json: %w", err)
+		return nil, err
 	}
 	return result, nil
 }
