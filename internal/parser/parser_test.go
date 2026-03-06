@@ -20,6 +20,10 @@ func TestParse(t *testing.T) {
 	if err := os.WriteFile(invalidJson, []byte("{"), 0644); err != nil {
 		t.Fatal(err)
 	}
+	validJson := filepath.Join(tempDir, "valid_json.json")
+	if err := os.WriteFile(validJson, []byte("{}"), 0644); err != nil {
+		t.Fatal(err)
+	}
 
 	testData := []struct {
 		name  string
@@ -44,12 +48,20 @@ func TestParse(t *testing.T) {
 			},
 		},
 		{
-			name: "Invalid json file",
+			name: "Invalid JSON file",
 			path: invalidJson,
 			want: map[string]any(nil),
 			check: func(t *testing.T, err error) {
 				var syntaxErr *json.SyntaxError
 				assert.ErrorAs(t, err, &syntaxErr)
+			},
+		},
+		{
+			name: "Valid JSON file",
+			path: validJson,
+			want: map[string]any{},
+			check: func(t *testing.T, err error) {
+				assert.NoError(t, err)
 			},
 		},
 	}
