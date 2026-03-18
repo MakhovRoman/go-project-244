@@ -2,7 +2,7 @@ package code
 
 import (
 	"code/internal/compare"
-	"code/internal/parser"
+	"code/internal/parsers"
 	"path/filepath"
 )
 
@@ -17,12 +17,12 @@ func GenDiff(path1, path2 string) (string, error) {
 		return "", err
 	}
 
-	parsed1, err := parser.Parse(normalizedPath1)
+	parsed1, err := parsers.Parse(normalizedPath1)
 	if err != nil {
 		return "", err
 	}
 
-	parsed2, err := parser.Parse(normalizedPath2)
+	parsed2, err := parsers.Parse(normalizedPath2)
 	if err != nil {
 		return "", err
 	}

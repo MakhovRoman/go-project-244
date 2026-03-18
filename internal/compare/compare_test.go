@@ -1,7 +1,7 @@
 package compare
 
 import (
-	"code/internal/parser"
+	"code/internal/parsers"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -14,18 +14,18 @@ func TestBuildDiff(t *testing.T) {
 		"- timeout: 50\n" +
 		"+ timeout: 20\n" +
 		"+ verbose: true\n"
-	
+
 	file1, file2 := "../../testdata/fixture/file1.json", "../../testdata/fixture/file2.json"
 
 	t.Run("base", func(t *testing.T) {
 		t.Parallel()
 
-		parsed1, err := parser.Parse(file1)
+		parsed1, err := parsers.Parse(file1)
 		if err != nil {
 			t.Error(err)
 		}
 
-		parsed2, err := parser.Parse(file2)
+		parsed2, err := parsers.Parse(file2)
 		if err != nil {
 			t.Error(err)
 		}

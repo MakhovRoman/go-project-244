@@ -1,4 +1,4 @@
-package parser
+package parsers
 
 import (
 	"encoding/json"
@@ -12,6 +12,7 @@ import (
 func TestParse(t *testing.T) {
 	tempDir := t.TempDir()
 	fakePath := "./fake_file.json"
+
 	notJsonFile := filepath.Join(tempDir, "not_json.txt")
 	if err := os.WriteFile(notJsonFile, []byte("{}"), 0644); err != nil {
 		t.Fatal(err)
@@ -22,6 +23,19 @@ func TestParse(t *testing.T) {
 	}
 	validJson := filepath.Join(tempDir, "valid_json.json")
 	if err := os.WriteFile(validJson, []byte("{}"), 0644); err != nil {
+		t.Fatal(err)
+	}
+
+	validYaml := filepath.Join(tempDir, "valid.yaml")
+	if err := os.WriteFile(validYaml, []byte("key: value\n"), 0644); err != nil {
+		t.Fatal(err)
+	}
+	validYml := filepath.Join(tempDir, "valid.yml")
+	if err := os.WriteFile(validYml, []byte("key: value\n"), 0644); err != nil {
+		t.Fatal(err)
+	}
+	invalidYaml := filepath.Join(tempDir, "invalid.yaml")
+	if err := os.WriteFile(invalidYaml, []byte("key: :\n"), 0644); err != nil {
 		t.Fatal(err)
 	}
 
@@ -62,6 +76,30 @@ func TestParse(t *testing.T) {
 			want: map[string]any{},
 			check: func(t *testing.T, err error) {
 				assert.NoError(t, err)
+			},
+		},
+		{
+			name: "Valid YAML file (.yaml)",
+			path: validYaml,
+			want: map[string]any{"key": "value"},
+			check: func(t *testing.T, err error) {
+				assert.NoError(t, err)
+			},
+		},
+		{
+			name: "Valid YAML file (.yml)",
+			path: validYml,
+			want: map[string]any{"key": "value"},
+			check: func(t *testing.T, err error) {
+				assert.NoError(t, err)
+			},
+		},
+		{
+			name: "Invalid YAML file",
+			path: invalidYaml,
+			want: map[string]any(nil),
+			check: func(t *testing.T, err error) {
+				assert.Error(t, err)
 			},
 		},
 	}
