@@ -10,6 +10,7 @@ type DiffStruct struct {
 	OldValue any
 	NewValue any
 	Children DiffMap
+	Parent   string
 }
 type DiffMap map[string]DiffStruct
 
@@ -48,18 +49,23 @@ func BuildDiff(d1, d2 map[string]any) DiffMap {
 		case mapOk1 && mapOk2:
 			buf.Code = CodeUnchanged
 			buf.Children = BuildDiff(m1, m2)
+			buf.Parent += "." + k
 		case mapOk1 && !ok2 || ok1 && !ok2:
-			buf.OldValue = v1
 			buf.Code = CodeRemoved
+			buf.OldValue = v1
+			buf.Parent += "." + k
 		case !ok1 && mapOk2 || !ok1 && ok2:
-			buf.NewValue = v2
 			buf.Code = CodeAdded
+			buf.NewValue = v2
+			buf.Parent += "." + k
 		case v1 != v2:
+			buf.Code = CodeChanged
 			buf.OldValue = v1
 			buf.NewValue = v2
-			buf.Code = CodeChanged
+			buf.Parent += "." + k
 		default:
 			buf.OldValue = v1
+			buf.Parent += "." + k
 		}
 
 		diffMap[k] = buf

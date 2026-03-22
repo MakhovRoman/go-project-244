@@ -1,4 +1,4 @@
-package formatter
+package formatters
 
 import (
 	"code/internal/compare"

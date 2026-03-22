@@ -2,7 +2,7 @@ package code
 
 import (
 	"code/internal/compare"
-	"code/internal/formatter"
+	"code/internal/formatters"
 	"code/internal/parser"
 	"path/filepath"
 )
@@ -29,7 +29,7 @@ func GenDiff(path1, path2, format string) (string, error) {
 	}
 
 	diff := compare.BuildDiff(parsed1, parsed2)
-	result := formatter.GetFormattedDif(format, diff)
+	result := formatters.GetFormattedDif(format, diff)
 
 	return result, nil
 }

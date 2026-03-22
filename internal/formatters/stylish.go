@@ -1,7 +1,8 @@
-package formatter
+package formatters
 
 import (
 	"code/internal/compare"
+	"code/internal/utils"
 	"fmt"
 	"maps"
 	"slices"
@@ -16,8 +17,7 @@ func Stylish(diff compare.DiffMap) string {
 
 func stylish(diff compare.DiffMap, depth int) string {
 	var result strings.Builder
-
-	sortedKeys := slices.Sorted(maps.Keys(diff))
+	sortedKeys := utils.SortKeys(diff)
 
 	for _, k := range sortedKeys {
 		v := diff[k]
@@ -31,21 +31,21 @@ func stylish(diff compare.DiffMap, depth int) string {
 		}
 		switch v.Code {
 		case compare.CodeAdded:
-			fmt.Fprintf(&result, indent+"+ %s: %s\n", k, formatter(v.NewValue, depth))
+			fmt.Fprintf(&result, indent+"+ %s: %s\n", k, stylishFormatter(v.NewValue, depth))
 		case compare.CodeRemoved:
-			fmt.Fprintf(&result, indent+"- %s: %s\n", k, formatter(v.OldValue, depth))
+			fmt.Fprintf(&result, indent+"- %s: %s\n", k, stylishFormatter(v.OldValue, depth))
 		case compare.CodeChanged:
-			fmt.Fprintf(&result, indent+"- %s: %s\n", k, formatter(v.OldValue, depth))
-			fmt.Fprintf(&result, indent+"+ %s: %s\n", k, formatter(v.NewValue, depth))
+			fmt.Fprintf(&result, indent+"- %s: %s\n", k, stylishFormatter(v.OldValue, depth))
+			fmt.Fprintf(&result, indent+"+ %s: %s\n", k, stylishFormatter(v.NewValue, depth))
 		default:
-			fmt.Fprintf(&result, indent+"  %s: %s\n", k, formatter(v.OldValue, depth))
+			fmt.Fprintf(&result, indent+"  %s: %s\n", k, stylishFormatter(v.OldValue, depth))
 		}
 	}
 
 	return result.String()
 }
 
-func formatter(v any, depth int) string {
+func stylishFormatter(v any, depth int) string {
 	if v == nil {
 		return "null"
 	}
