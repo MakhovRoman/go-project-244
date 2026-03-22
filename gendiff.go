@@ -2,11 +2,12 @@ package code
 
 import (
 	"code/internal/compare"
-	"code/internal/parsers"
+	"code/internal/formatter"
+	"code/internal/parser"
 	"path/filepath"
 )
 
-func GenDiff(path1, path2 string) (string, error) {
+func GenDiff(path1, path2, format string) (string, error) {
 	normalizedPath1, err := normalizePath(path1)
 	if err != nil {
 		return "", err
@@ -17,17 +18,18 @@ func GenDiff(path1, path2 string) (string, error) {
 		return "", err
 	}
 
-	parsed1, err := parsers.Parse(normalizedPath1)
+	parsed1, err := parser.Parse(normalizedPath1)
 	if err != nil {
 		return "", err
 	}
 
-	parsed2, err := parsers.Parse(normalizedPath2)
+	parsed2, err := parser.Parse(normalizedPath2)
 	if err != nil {
 		return "", err
 	}
 
-	result := compare.BuildDiff(parsed1, parsed2)
+	diff := compare.BuildDiff(parsed1, parsed2)
+	result := formatter.GetFormattedDif(format, diff)
 
 	return result, nil
 }

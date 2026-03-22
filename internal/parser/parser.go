@@ -1,4 +1,4 @@
-package parsers
+package parser
 
 import (
 	"encoding/json"
@@ -6,7 +6,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/stretchr/testify/assert/yaml"
+	"gopkg.in/yaml.v3"
 )
 
 type FuncParser func(data []byte) (map[string]any, error)

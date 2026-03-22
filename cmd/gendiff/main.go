@@ -30,7 +30,7 @@ func main() {
 			path1 := cmd.Args().Get(0)
 			path2 := cmd.Args().Get(1)
 
-			res, err := code.GenDiff(path1, path2)
+			res, err := code.GenDiff(path1, path2, cmd.String("format"))
 			if err != nil {
 				return err
 			}
