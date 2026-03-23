@@ -8,7 +8,8 @@ import (
 )
 
 func Plain(diff compare.DiffMap) string {
-	return plain(diff, "")
+	p := plain(diff, "")
+	return strings.TrimRight(p, "\n")
 }
 
 func plain(diff compare.DiffMap, path string) string {

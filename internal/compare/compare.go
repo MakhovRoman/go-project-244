@@ -77,12 +77,3 @@ func isMap(value any) (map[string]any, bool) {
 	obj, ok := value.(map[string]any)
 	return obj, ok
 }
-
-//func isArray(value any) ([]any, bool) {
-//	if value == nil {
-//		return nil, false
-//	}
-//
-//	arr, ok := value.([]any)
-//	return arr, ok
-//}
