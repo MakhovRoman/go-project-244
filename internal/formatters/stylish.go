@@ -9,7 +9,7 @@ import (
 	"strings"
 )
 
-var indentIdx = 4
+var stylishIndent = 4
 
 func Stylish(diff compare.DiffMap) string {
 	return "{\n" + stylish(diff, 1) + "}"
@@ -21,7 +21,7 @@ func stylish(diff compare.DiffMap, depth int) string {
 
 	for _, k := range sortedKeys {
 		v := diff[k]
-		indent := strings.Repeat(" ", indentIdx*depth-2)
+		indent := strings.Repeat(" ", stylishIndent*depth-2)
 
 		if len(v.Children) > 0 {
 			fmt.Fprintf(&result, indent+"  %s: {\n", k)
@@ -29,7 +29,7 @@ func stylish(diff compare.DiffMap, depth int) string {
 			fmt.Fprint(&result, indent+"  }\n")
 			continue
 		}
-		switch v.Code {
+		switch v.Status {
 		case compare.CodeAdded:
 			fmt.Fprintf(&result, indent+"+ %s: %s\n", k, stylishFormatter(v.NewValue, depth))
 		case compare.CodeRemoved:
@@ -57,8 +57,8 @@ func stylishFormatter(v any, depth int) string {
 
 func formatRawMap(m map[string]any, depth int) string {
 	var str strings.Builder
-	innerIndent := strings.Repeat(" ", indentIdx*(depth+1)-2)
-	closingIndent := strings.Repeat(" ", indentIdx*depth-2)
+	innerIndent := strings.Repeat(" ", stylishIndent*(depth+1)-2)
+	closingIndent := strings.Repeat(" ", stylishIndent*depth-2)
 	sortedKeys := slices.Sorted(maps.Keys(m))
 
 	str.WriteString("{\n")

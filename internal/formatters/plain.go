@@ -23,7 +23,7 @@ func plain(diff compare.DiffMap, path string) string {
 			continue
 		}
 
-		switch v.Code {
+		switch v.Status {
 		case compare.CodeAdded:
 			fmt.Fprintf(&result, "Property '%s' was added with value: %v\n", formatPath(path, k), plainFormatter(v.NewValue))
 		case compare.CodeRemoved:

@@ -9,11 +9,11 @@ import (
 
 func TestBuildDiff(t *testing.T) {
 	wantDiff := DiffMap{
-		"follow":  {Code: 2},
-		"host":    {Code: 0},
-		"proxy":   {Code: 2},
-		"timeout": {Code: 3},
-		"verbose": {Code: 1},
+		"follow":  {Status: CodeRemoved},
+		"host":    {Status: CodeUnchanged},
+		"proxy":   {Status: CodeRemoved},
+		"timeout": {Status: CodeChanged},
+		"verbose": {Status: CodeAdded},
 	}
 
 	file1, file2 := "../../testdata/fixture/file1.json", "../../testdata/fixture/file2.json"
@@ -32,7 +32,7 @@ func TestBuildDiff(t *testing.T) {
 		}
 		gotDiff := BuildDiff(parsed1, parsed2)
 		for k, v := range wantDiff {
-			assert.Equal(t, v.Code, gotDiff[k].Code)
+			assert.Equal(t, v.Status, gotDiff[k].Status)
 		}
 	})
 }
