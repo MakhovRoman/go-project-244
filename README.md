@@ -29,7 +29,7 @@ GLOBAL OPTIONS:
    --help, -h                  show help
 ```
 
-**Example:**
+### Example
 ```bash
 ./bin/gendiff ./testdata/fixture/file1.json ./testdata/fixture/file2.json --format plain
 ```

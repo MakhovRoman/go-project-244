@@ -23,49 +23,49 @@ func TestPlain(t *testing.T) {
 			diff: compare.DiffMap{
 				"timeout": {Status: compare.CodeAdded, NewValue: 20},
 			},
-			want: "Property 'timeout' was added with value: 20\n",
+			want: "Property 'timeout' was added with value: 20",
 		},
 		{
 			name: "added string",
 			diff: compare.DiffMap{
 				"host": {Status: compare.CodeAdded, NewValue: "hexlet.io"},
 			},
-			want: "Property 'host' was added with value: 'hexlet.io'\n",
+			want: "Property 'host' was added with value: 'hexlet.io'",
 		},
 		{
 			name: "added null",
 			diff: compare.DiffMap{
 				"setting3": {Status: compare.CodeAdded, NewValue: nil},
 			},
-			want: "Property 'setting3' was added with value: null\n",
+			want: "Property 'setting3' was added with value: null",
 		},
 		{
 			name: "added complex",
 			diff: compare.DiffMap{
 				"setting5": {Status: compare.CodeAdded, NewValue: map[string]any{"key5": "value5"}},
 			},
-			want: "Property 'setting5' was added with value: [complex value]\n",
+			want: "Property 'setting5' was added with value: [complex value]",
 		},
 		{
 			name: "removed",
 			diff: compare.DiffMap{
 				"proxy": {Status: compare.CodeRemoved, OldValue: "123.234.53.22"},
 			},
-			want: "Property 'proxy' was removed\n",
+			want: "Property 'proxy' was removed",
 		},
 		{
 			name: "changed",
 			diff: compare.DiffMap{
 				"timeout": {Status: compare.CodeChanged, OldValue: 50, NewValue: 20},
 			},
-			want: "Property 'timeout' was updated. From 50 to 20\n",
+			want: "Property 'timeout' was updated. From 50 to 20",
 		},
 		{
 			name: "changed complex to scalar",
 			diff: compare.DiffMap{
 				"nest": {Status: compare.CodeChanged, OldValue: map[string]any{"key": "value"}, NewValue: "str"},
 			},
-			want: "Property 'nest' was updated. From [complex value] to 'str'\n",
+			want: "Property 'nest' was updated. From [complex value] to 'str'",
 		},
 		{
 			name: "unchanged skipped",
@@ -86,7 +86,7 @@ func TestPlain(t *testing.T) {
 				},
 			},
 			want: "Property 'common.follow' was added with value: false\n" +
-				"Property 'common.setting2' was removed\n",
+				"Property 'common.setting2' was removed",
 		},
 		{
 			name: "deeply nested path",
@@ -103,7 +103,7 @@ func TestPlain(t *testing.T) {
 					},
 				},
 			},
-			want: "Property 'common.setting6.ops' was added with value: 'vops'\n",
+			want: "Property 'common.setting6.ops' was added with value: 'vops'",
 		},
 	}
 
