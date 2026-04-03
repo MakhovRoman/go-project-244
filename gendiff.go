@@ -7,6 +7,8 @@ import (
 	"path/filepath"
 )
 
+// GenDiff строит разницу между двумя файлами и возвращает результат
+// в выбранном формате (JSON, Stylish, Plain).
 func GenDiff(path1, path2, format string) (string, error) {
 	normalizedPath1, err := normalizePath(path1)
 	if err != nil {

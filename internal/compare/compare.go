@@ -5,12 +5,15 @@ import (
 	"slices"
 )
 
+// DiffStruct содержит информацию о различии одного поля.
 type DiffStruct struct {
 	Status   string
 	OldValue any
 	NewValue any
 	Children DiffMap
 }
+
+// DiffMap — результат сравнения двух файлов: ключ — имя поля, значение — DiffStruct.
 type DiffMap map[string]DiffStruct
 
 const (
@@ -20,6 +23,9 @@ const (
 	CodeChanged   = "changed"
 )
 
+// BuildDiff строит карту, содержащую информацию по каждому полю
+// в сравниваемых файлах. Ключом является имя поля, значением — структура DiffStruct,
+// содержащая статус сравнения, значения в обоих файлах и список потомков (если поле является объектом).
 func BuildDiff(d1, d2 map[string]any) DiffMap {
 	keysMap := make(map[string]struct{})
 

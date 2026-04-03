@@ -9,6 +9,7 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
+// FuncParser — тип функции для парсинга файла в map[string]any.
 type FuncParser func(data []byte) (map[string]any, error)
 
 var ErrUnsupportedFormat = errors.New("unsupported format")
@@ -18,6 +19,8 @@ var parsersMap = map[string]FuncParser{
 	".yml":  yamlParser,
 }
 
+// Parse разбирает файл в зависимости от его расширения (json или yaml)
+// и возвращает содержимое в виде map[string]any.
 func Parse(path string) (map[string]any, error) {
 	data, err := os.ReadFile(path)
 	if err != nil {

@@ -7,6 +7,7 @@ import (
 	"strings"
 )
 
+// Plain выводит результат сравнения файлов в Plain формате.
 func Plain(diff compare.DiffMap) string {
 	p := plain(diff, "")
 	return strings.TrimRight(p, "\n")

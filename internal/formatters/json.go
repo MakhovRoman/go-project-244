@@ -7,6 +7,7 @@ import (
 	"fmt"
 )
 
+// DiffNode представляет узел дерева различий для JSON-вывода.
 type DiffNode struct {
 	Status   string              `json:"status"`
 	Value    *any                `json:"value,omitempty"`
@@ -15,6 +16,7 @@ type DiffNode struct {
 	Children map[string]DiffNode `json:"children,omitempty"`
 }
 
+// JSON выводит результат сравнения файлов в JSON формате.
 func JSON(diff compare.DiffMap) (string, error) {
 	node := buildJSON(diff)
 
@@ -56,6 +58,7 @@ func buildJSON(diff compare.DiffMap) map[string]DiffNode {
 	return result
 }
 
+// Ptr возвращает указатель на переданное значение.
 func Ptr(v any) *any {
 	return &v
 }

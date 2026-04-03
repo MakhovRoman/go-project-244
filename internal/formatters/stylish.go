@@ -11,6 +11,7 @@ import (
 
 var stylishIndent = 4
 
+// Stylish выводит результат сравнения файлов в Stylish формате.
 func Stylish(diff compare.DiffMap) string {
 	return "{\n" + stylish(diff, 1) + "}"
 }

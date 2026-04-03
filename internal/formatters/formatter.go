@@ -5,6 +5,7 @@ import (
 	"fmt"
 )
 
+// GetFormattedDif возвращает результат сравнения файлов в указанном формате.
 func GetFormattedDif(format string, diff compare.DiffMap) (string, error) {
 	switch format {
 	case "stylish":
